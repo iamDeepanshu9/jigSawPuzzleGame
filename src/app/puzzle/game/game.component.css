@@ -68,3 +68,24 @@
   width: auto;
   padding: 3px 8px;
 }
+
+.buttonsHeader{
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  margin-top: 2rem;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.actionButtonContainer{
+  display: flex;
+  column-gap: 10%;
+}
+
+.actionButton{
+  height: 48px;
+  width: 200px;
+  border-radius: 10px;
+}

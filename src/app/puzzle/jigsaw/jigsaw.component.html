@@ -1,0 +1,46 @@
+<div class="container">
+
+  <div class="header">
+    <h1 class="header-title">Jigsaw Puzzle</h1>
+  </div>
+
+  <div class="actionButtonContainer">
+    <button mat-raised-button class="actionButton" (click)="handleUnscramble()">
+      Unscramble
+    </button>
+
+    <button mat-raised-button class="actionButton" (click)="handleScramble()"
+            style="background-color: green; color: white">
+      Scramble
+    </button>
+  </div>
+
+  <h2 style="border-top: 1px solid gray;
+  width: 90%;">{{selectedImage$$.value.title}}</h2>
+
+  <div id="collage">
+
+    <div class="playPanel" id="playPanel">
+      <div style="display:inline-block; margin:auto; width:95%; vertical-align:top;">
+        <ul id="sortable" #sortable [ngStyle]="{'border': (isGameStarted$$|async) ? '2px solid #a46' : null }" class="sortable"></ul>
+      </div>
+    </div>
+
+    <div class="viewPanel" *ngIf="(isGameStarted$$ | async) === false" >
+      <img [src]="selectedImage$$.value.src">
+    </div>
+
+    <div class="scoreCard" *ngIf="(isGameStarted$$ | async) === true">
+      <div>
+        <img [src]="selectedImage$$.value.src" class="sortImage">
+      </div>
+
+      <div class="score">
+        <p>Steps : {{(stepCount$$|async)?.value ?? 0}}</p>
+        <p>Time: {{(timeCount$$|async)?.value ?? 0}} </p>
+      </div>
+
+    </div>
+
+  </div>
+</div>

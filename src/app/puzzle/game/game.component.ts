@@ -12,11 +12,10 @@ export class GameComponent implements OnInit {
   // gridSize: number = 4;
   timerFunction: any;
   images = [
-    { src: 'assets/images/london-bridge.jpg', title: 'London Bridge' },
-    { src: 'assets/images/lotus-temple.jpg', title: 'Lotus Temple' },
-    { src: 'assets/images/qutub-minar.jpg', title: 'Qutub Minar' },
+    { src: 'assets/images/londonBridge.jpg', title: 'London Bridge' },
+    { src: 'assets/images/qutubMinar.jpg', title: 'Qutub Minar' },
     { src: 'assets/images/statue-of-liberty.jpg', title: 'Statue Of Liberty' },
-    { src: 'assets/images/taj-mahal.jpg', title: 'Taj Mahal' }
+    { src: 'assets/images/tajMahal.jpg', title: 'Taj Mahal' }
   ];
 
   constructor(private renderer: Renderer2) { }
@@ -24,7 +23,7 @@ export class GameComponent implements OnInit {
   ngOnInit(): void {
     // Define your images array here
     const gridQuery = document.querySelector('#levelPanel input[type="radio"]:checked') as HTMLElement;
-    const gridSize = gridQuery.getAttribute('value') ?? 4;
+    const gridSize = 4;
 
     this.startGame(this.images,+gridSize);
   }
@@ -44,6 +43,14 @@ export class GameComponent implements OnInit {
     const elapsedTime = (now - this.startTime) / 1000;
     this.renderer.setProperty(document.getElementById('timerPanel'), 'textContent', elapsedTime);
     this.timerFunction = setTimeout(() => this.tick(), 1000);
+  }
+
+  public handleUnscramble() {
+    //startGame
+  }
+
+  public handleScramble() {
+    //endGame
   }
 
   setImage(images: any[], gridSize: number = 4): void {

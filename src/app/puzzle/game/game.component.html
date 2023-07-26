@@ -1,6 +1,19 @@
 <div id="collage">
-  <h2>Image Puzzle</h2>
+  <h2 style="text-align: center">Image Puzzle</h2>
   <hr />
+
+  <div class="buttonsHeader">
+  <div class="actionButtonContainer">
+    <button mat-raised-button class="actionButton" (click)="handleUnscramble()">
+      Unscramble
+    </button>
+
+    <button mat-raised-button class="actionButton" (click)="handleScramble()"
+            style="background-color: green; color: white">
+      Scramble
+    </button>
+  </div>
+  </div>
   <div id="playPanel" style="padding:5px;display:none;">
     <h3 id="imgTitle"></h3>
     <hr />
@@ -16,17 +29,6 @@
         </div>
         <img id="actualImage" />
         <div>Re-arrange to create a picture like this.</div>
-        <p id="levelPanel">
-          <input type="radio" name="level" id="easy" checked="checked" value="3" onchange="imagePuzzle.startGame(images, this.value);"
-          /> <label for="easy">Easy</label>
-          <input type="radio" name="level" id="medium" value="4" onchange="imagePuzzle.startGame(images, this.value);" />                        <label for="medium">Medium</label>
-          <input type="radio" name="level" id="hard" value="5" onchange="imagePuzzle.startGame(images, this.value);" />                        <label for="hard">Hard</label>
-        </p>
-        <div>
-          <button id="btnRule" type="button" class="btn" onclick="rules();">Rules</button>
-          <button id="newPhoto" type="button" class="btn" onclick="restart();">Another Photo</button>
-          <button id="btnReplay" type="button" class="btn" onclick="about();">About</button>
-        </div>
       </div>
     </div>
   </div>

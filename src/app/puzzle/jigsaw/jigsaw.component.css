@@ -1,0 +1,56 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  margin-top: 2rem;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.header{
+  border-bottom: 1px solid gray;
+  width: 90%;
+  font-family: sans-serif cursive;
+  font-weight: bolder;
+  text-transform: uppercase;
+}
+
+.actionButtonContainer{
+  display: flex;
+  column-gap: 10%;
+}
+
+.actionButton{
+  height: 48px;
+  width: 200px;
+  border-radius: 10px;
+}
+
+.playPanel{
+  width: 90%;
+}
+
+#collage #sortable {
+  list-style-type: none;
+  display: inline-block;
+  margin: 10px;
+  padding: 0;
+  width: 400px;
+}
+
+#collage #sortable li {
+  background-size: 400% 400%;
+  border: none;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  float: left;
+  width: 100px;
+  height: 100px;
+}
+
+.sortImage{
+  width: 50px;
+  height: 50px;
+}
