@@ -1,4 +1,12 @@
-.container{
+.mainBody {
+  min-width: 100vw;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: #E1E8EE;
+}
+
+.container {
   display: flex;
   flex-direction: column;
   row-gap: 10px;
@@ -8,7 +16,7 @@
   justify-content: center;
 }
 
-.header{
+.header {
   border-bottom: 1px solid gray;
   width: 90%;
   font-family: sans-serif cursive;
@@ -16,20 +24,25 @@
   text-transform: uppercase;
 }
 
-.actionButtonContainer{
+.actionButtonContainer {
   display: flex;
   column-gap: 10%;
+  position: relative;
 }
 
-.actionButton{
+.restart {
+  position: absolute;
+  right: 47%;
+  top: 24%;
+  cursor: pointer;
+}
+
+.actionButton {
   height: 48px;
   width: 200px;
   border-radius: 10px;
 }
 
-.playPanel{
-  width: 90%;
-}
 
 #collage #sortable {
   list-style-type: none;
@@ -50,7 +63,29 @@
   height: 100px;
 }
 
-.sortImage{
-  width: 50px;
-  height: 50px;
+.sortImage {
+  width: 150px;
+  height: 150px;
+}
+
+.scoreCard {
+  display: flex;
+  flex-direction: row-reverse;
+  margin-left: 20px;
+  margin-top: 20px;
+  justify-content: space-between;
+}
+
+.logOutButton {
+  position: absolute;
+  right: 5%;
+  top: 4.6%;
+  cursor: pointer;
+}
+
+.userButton {
+  position: absolute;
+  left: 5%;
+  top: 4.6%;
+  cursor: pointer;
 }

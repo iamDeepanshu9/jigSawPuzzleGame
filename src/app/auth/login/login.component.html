@@ -1,29 +1,46 @@
+<!--<div class="loginContainer">-->
+<!--  <mat-card>-->
+<!--    <mat-card-title>Login</mat-card-title>-->
+<!--    <mat-card-content>-->
+<!--      <form [formGroup]="formGroup" class="userForm">-->
+<!--        <mat-form-field appearance="outline">-->
+<!--          <mat-label>Username</mat-label>-->
+<!--          <input type="text" matInput formControlName="username" required />-->
+<!--        </mat-form-field>-->
+
+<!--        <mat-form-field appearance="outline">-->
+<!--          <mat-label>Password</mat-label>-->
+<!--          <input type="text" matInput formControlName="password" required />-->
+<!--        </mat-form-field>-->
+<!--      </form>-->
+<!--    </mat-card-content>-->
+
+<!--    <mat-card-actions class="loginFooter">-->
+<!--      <button mat-button (click)="signUpButtonHandle()">Sign Up</button>-->
+<!--      <button mat-button (click)="loginButtonHandle()">Login</button>-->
+<!--    </mat-card-actions>-->
+<!--  </mat-card>-->
+<!--</div>-->
 <div class="loginContainer">
-  <mat-card>
-    <mat-card-title>Login</mat-card-title>
-    <mat-card-content>
-      <form [formGroup]="formGroup" class="userForm">
-        <mat-form-field appearance="outline">
-          <mat-label>Username</mat-label>
-<!--          <mat-error *ngIf="packingList.get('description').hasError('required')">-->
-<!--            Description is required-->
-<!--          </mat-error>-->
-          <input type="text" matInput formControlName="username" required />
-        </mat-form-field>
-
-        <mat-form-field appearance="outline">
-          <mat-label>Password</mat-label>
-<!--          <mat-error *ngIf="packingList.get('description').hasError('required')">-->
-<!--            Description is required-->
-<!--          </mat-error>-->
-          <input type="text" matInput formControlName="password" required />
-        </mat-form-field>
-      </form>
-    </mat-card-content>
-
-    <mat-card-actions class="loginFooter">
-      <button mat-button (click)="signUpButtonHandle()">Sign Up</button>
-      <button mat-button (click)="loginButtonHandle()">Login</button>
-    </mat-card-actions>
-  </mat-card>
+  <div class="form-structor">
+    <div class="signup slide-up" id="signupContainer" [formGroup]="signUpFormGroup">
+      <h2 class="form-title" id="signup" (click)="handleButtonSwitch('signUp')"><span>or</span>Sign up</h2>
+      <div class="form-holder">
+        <input type="text" class="input" formControlName="username" placeholder="Name"/>
+        <input type="email" class="input" formControlName="email" placeholder="Email"/>
+        <input type="password" class="input" formControlName="password" placeholder="Password"/>
+      </div>
+      <button class="submit-btn" (click)="signUpButtonHandle()">Sign up</button>
+    </div>
+    <div #loginBox class="login" id="loginContainer" [formGroup]="loginFormGroup">
+      <div class="center">
+        <h2 class="form-title" id="login" (click)="handleButtonSwitch('login')"><span>or</span>Log in</h2>
+        <div class="form-holder">
+          <input type="text" class="input" formControlName="username" placeholder="Username"/>
+          <input type="password" class="input" formControlName="password" placeholder="Password"/>
+        </div>
+        <button class="submit-btn" #loginButton (click)="loginButtonHandle()">Log in</button>
+      </div>
+    </div>
+  </div>
 </div>

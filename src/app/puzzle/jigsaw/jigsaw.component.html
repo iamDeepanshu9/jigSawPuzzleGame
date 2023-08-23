@@ -1,15 +1,18 @@
+<div class="mainBody">
 <div class="container">
 
   <div class="header">
+    <mat-icon class="userButton" (click)="userDetail()">person</mat-icon>
     <h1 class="header-title">Jigsaw Puzzle</h1>
+    <mat-icon class="logOutButton" (click)="logOut()">exit_to_app</mat-icon>
   </div>
 
   <div class="actionButtonContainer">
     <button mat-raised-button class="actionButton" (click)="handleUnscramble()">
       Unscramble
     </button>
-
-    <button mat-raised-button class="actionButton" (click)="handleScramble()"
+    <mat-icon class="restart" (click)="restart()">autorenew</mat-icon>
+    <button mat-raised-button class="actionButton" [disabled]="(isGameOver$$|async) === false" [ngStyle]="{'opacity':(isGameOver$$|async) === false ? '40%' : null}"  (click)="handleScramble()"
             style="background-color: green; color: white">
       Scramble
     </button>
@@ -20,7 +23,7 @@
 
   <div id="collage">
 
-    <div class="playPanel" id="playPanel">
+    <div class="playPanel" id="playPanel" [ngStyle]="{'display': (isGameStarted$$|async) ? null : 'none' }">
       <div style="display:inline-block; margin:auto; width:95%; vertical-align:top;">
         <ul id="sortable" #sortable [ngStyle]="{'border': (isGameStarted$$|async) ? '2px solid #a46' : null }" class="sortable"></ul>
       </div>
@@ -36,11 +39,15 @@
       </div>
 
       <div class="score">
-        <p>Steps : {{(stepCount$$|async)?.value ?? 0}}</p>
-        <p>Time: {{(timeCount$$|async)?.value ?? 0}} </p>
+        <div class="gameOver" *ngIf="(isGameOver$$|async)=== true">
+          <h2>Yeah! You Have Solved The Puzzle</h2>
+          <h3>Steps : {{stepCount$$|async}}</h3>
+          <h3>TimeTaken : {{timeCount$$|async}}</h3>
+        </div>
       </div>
 
     </div>
 
   </div>
+</div>
 </div>

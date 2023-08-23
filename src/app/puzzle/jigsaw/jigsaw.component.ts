@@ -1,5 +1,9 @@
 import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {BehaviorSubject, Subject} from "rxjs";
+import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
+import {ApiHandleService} from "../../services/api-handle.service";
+import {SnackBarService} from "../../services/snackbar.service";
 
 @Component({
   selector: 'app-jigsaw',
@@ -14,7 +18,7 @@ export class JigsawComponent implements OnInit {
   public startTime$$ = new BehaviorSubject<any>(null)
   public timerFunction: any;
   public isGameStarted$$ = new BehaviorSubject<boolean>(false);
-
+  public isGameOver$$ = new BehaviorSubject(false);
 
 
   public images = [
@@ -25,7 +29,7 @@ export class JigsawComponent implements OnInit {
   ];
   public selectedImage$$ = new BehaviorSubject(this.images[Math.floor(Math.random() * this.images.length)]);
 
-  constructor(private renderer: Renderer2) {
+  constructor(private renderer: Renderer2, private authService: AuthService, private router: Router, private apiHandleService: ApiHandleService, private sbs: SnackBarService) {
   }
 
   public ngOnInit(): void {
@@ -34,11 +38,35 @@ export class JigsawComponent implements OnInit {
   public handleUnscramble() {
     //startGame
     this.isGameStarted$$.next(true);
-    this.startGame(this.selectedImage$$.value,6);
+    this.startGame(this.selectedImage$$.value,4);
   }
 
   public handleScramble() {
     //endGame
+    console.log('scramble')
+    this.router.navigate(['user'],{
+      state: {time: this.timeCount$$.value, steps: this.stepCount$$}
+    })
+    const requestBody = {
+      userId: localStorage.getItem('userId'),
+      steps: this.stepCount$$.value,
+      timeTaken: this.timeCount$$.value,
+      playingDate: (new Date()).toString(),
+      puzzleImage: this.selectedImage$$.value.title,
+    }
+
+    this.apiHandleService.scramble$(requestBody).pipe().subscribe((res) =>{
+      if(res){
+        this.sbs.showMessage('Saved Successfully')
+        this.router.navigate(['user'],{
+          state : {
+            userDetails: res
+          }
+        })
+      }
+    },(err)=>{
+      this.sbs.showError();
+    })
   }
 
   public startGame(image: any, gridSize: number){
@@ -134,10 +162,9 @@ export class JigsawComponent implements OnInit {
       this.timeCount$$.next((now - this.startTime$$.value) / 1000);
 
       if (this.isSorted(valIds)) {
-        // Game Over
-        const gameOverElement = document.getElementById('gameOver') as HTMLElement;
-        this.renderer.setProperty(document.getElementById('actualImageBox'), 'innerHTML', gameOverElement.innerHTML);
-        this.renderer.setProperty(document.getElementById('stepCount'), 'textContent', this.stepCount$$.toString());
+       this.isGameOver$$.next(true);
+       console.log(this.stepCount$$.value);
+       console.log(this.timeCount$$.value)
       }
     }
   }
@@ -149,4 +176,18 @@ export class JigsawComponent implements OnInit {
     this.timerFunction = setTimeout(() => this.tick(), 1000);
   }
 
+  public logOut() {
+    this.authService.logout();
+    this.router.navigate(['/auth', 'login']);
+  }
+
+  public userDetail() {
+    this.router.navigate(['user'])
+  }
+
+  public restart() {
+    this.isGameStarted$$.next(false);
+    this.isGameOver$$.next(false);
+    this.selectedImage$$.next(this.images[Math.floor(Math.random() * this.images.length)]);
+  }
 }

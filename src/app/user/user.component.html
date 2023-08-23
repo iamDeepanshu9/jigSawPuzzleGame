@@ -1,0 +1,45 @@
+<div>
+
+  <div class="header">
+    <mat-icon class="userButton" (click)="userDetail()">person</mat-icon>
+    <h1 class="header-title" (click)="puzzle()" style="cursor: pointer">Jigsaw Puzzle</h1>
+    <mat-icon class="logOutButton" (click)="logOut()">exit_to_app</mat-icon>
+  </div>
+
+  <div class="tableContainer">
+    <div *ngIf="!!userDetails$$.value; else loader"></div>
+    <table mat-table [dataSource]="userDetails$$ | async" class="tableStyle">
+      <ng-container matColumnDef="sno">
+        <th mat-header-cell *matHeaderCellDef>S.No</th>
+        <td mat-cell *matCellDef="let element; let i = index">{{ i + 1 }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef>Date</th>
+        <td mat-cell *matCellDef="let element" class="font-bold">12/12/12</td>
+      </ng-container>
+
+      <ng-container matColumnDef="score">
+        <th mat-header-cell *matHeaderCellDef>Score</th>
+        <td mat-cell *matCellDef="let element">1221</td>
+      </ng-container>
+      <ng-container matColumnDef="timeTaken">
+        <th mat-header-cell *matHeaderCellDef>Time Taken</th>
+        <td mat-cell *matCellDef="let element">
+          12 sec
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+    <div *ngIf="(userDetails$$ | async)?.length === 0" class="noDataDiv">
+      No data found
+    </div>
+  </div>
+</div>
+
+<ng-template #loader>
+  <div>
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  </div>
+</ng-template>
